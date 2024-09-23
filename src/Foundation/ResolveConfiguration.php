@@ -112,6 +112,8 @@ class ResolveConfiguration
         $component->blur ??= $configuration->get('blur', false);
         $component->persistent ??= $configuration->get('persistent', false);
         $component->left ??= $configuration->get('position', 'right') === 'left';
+        $component->top ??= $configuration->get('position', 'right') === 'top';
+        $component->bottom ??= $configuration->get('position', 'right') === 'bottom';
 
         $component->size = match ($component->size) {
             'sm' => 'sm:max-w-sm',
@@ -128,7 +130,7 @@ class ResolveConfiguration
         };
 
         return collect($component)
-            ->only(['zIndex', 'overflow', 'left', 'size', 'blur', 'persistent'])
+            ->only(['zIndex', 'overflow', 'left', 'size', 'blur', 'persistent', 'top', 'bottom'])
             ->toArray();
     }
 }
