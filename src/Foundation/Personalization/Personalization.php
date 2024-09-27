@@ -47,6 +47,9 @@ use TallStackUi\View\Components\Reaction;
 use TallStackUi\View\Components\Select\Native as SelectNative;
 use TallStackUi\View\Components\Select\Styled as SelectStyled;
 use TallStackUi\View\Components\Signature;
+use TallStackUi\View\Components\Skeleton\Skeleton;
+use TallStackUi\View\Components\Skeleton\Image as SkeletonImage;
+use TallStackUi\View\Components\Skeleton\Circle as SkeletonCircle;
 use TallStackUi\View\Components\Slide;
 use TallStackUi\View\Components\Stats;
 use TallStackUi\View\Components\Step\Step;
@@ -305,6 +308,22 @@ class Personalization
         $this->scope ??= $scope;
 
         return $this->component(Signature::class);
+    }
+
+    public function skeleton(?string $component = null, ?string $scope = null): PersonalizationFactory
+    {
+        $this->scope ??= $scope;
+
+        $component ??= 'skeleton';
+
+        $class = match ($component) {
+            'skeleton' => Skeleton::class,
+            'image' => SkeletonImage::class,
+            'circle' => SkeletonCircle::class,
+            default => $component,
+        };
+        
+        return $this->component($class);
     }
 
     public function slide(?string $scope = null): PersonalizationFactory
